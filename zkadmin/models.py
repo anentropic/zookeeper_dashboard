@@ -32,7 +32,11 @@ class ZKServer(object):
         sio = StringIO.StringIO(stat)
         line = sio.readline()
         m = re.search('.*: (\d+\.\d+\.\d+)-.*', line)
-        self.version = m.group(1)
+        try:
+            self.version = m.group(1)
+        except:
+            self.version = 'Not available'
+        
         sio.readline()
         self.sessions = []
         for line in sio:
@@ -44,8 +48,11 @@ class ZKServer(object):
             attr = attr.strip().replace(" ", "_").replace("/", "_").lower()
             self.__dict__[attr] = value.strip()
 
-        self.min_latency, self.avg_latency, self.max_latency = self.latency_min_avg_max.split("/")
-
+        try:
+            self.min_latency, self.avg_latency, self.max_latency = self.latency_min_avg_max.split("/")
+        except:
+		    self.min_latency, self.avg_latency, self.max_latency = 0,0,0
+		
         self.envi = []
         sio = StringIO.StringIO(envi)
         for line in sio:
