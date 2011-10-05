@@ -9,7 +9,7 @@ OP_ACCEPT = 16
 
 class Session(object):
     def __init__(self, session):
-        m = re.search('/(\d+\.\d+\.\d+\.\d+):(\d+)\[(\d+)\]\((.*)\)', session)
+    	m = re.search('/(\d+\.\d+\.\d+\.\d+):(\d+)\[(\d+)\]\((.*)', session)
         self.host = m.group(1)
         self.port = m.group(2)
         self.interest_ops = m.group(3)
@@ -36,12 +36,13 @@ class ZKServer(object):
         sio.readline()
         self.sessions = []
         for line in sio:
-            if not line.strip():
-                break
-            self.sessions.append(Session(line.strip()))
+            if line.startswith('/', 1, 2):
+               self.sessions.append(Session(line.strip()))
+               break
         for line in sio:
             attr, value = line.split(':')
             attr = attr.strip().replace(" ", "_").replace("/", "_").lower()
+            print attr
             self.__dict__[attr] = value.strip()
 
         self.min_latency, self.avg_latency, self.max_latency = self.latency_min_avg_max.split("/")
