@@ -42,7 +42,6 @@ class ZKServer(object):
         for line in sio:
             attr, value = line.split(':')
             attr = attr.strip().replace(" ", "_").replace("/", "_").lower()
-            print attr
             self.__dict__[attr] = value.strip()
 
         self.min_latency, self.avg_latency, self.max_latency = self.latency_min_avg_max.split("/")
