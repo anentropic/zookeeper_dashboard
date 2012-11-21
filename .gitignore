@@ -2,3 +2,6 @@
 cli_log.txt
 .project
 .pydevproject
+venv
+build
+db/*.sqlite3
