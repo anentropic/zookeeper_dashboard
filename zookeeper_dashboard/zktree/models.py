@@ -11,7 +11,7 @@ PERM_DELETE = 8
 PERM_ADMIN = 16
 PERM_ALL = PERM_READ | PERM_WRITE | PERM_CREATE | PERM_DELETE | PERM_ADMIN
 
-zookeeper.set_log_stream(open("cli_log.txt","w"))
+zookeeper.set_log_stream(open(settings.ZOOKEEPER_CLI_LOG_PATH, "w"))
 
 TIMEOUT = 10.0
 

@@ -44,12 +44,14 @@ class ZKServer(object):
         self.sessions = []
         for line in sio:
             if line.startswith('/', 1, 2):
-               self.sessions.append(Session(line.strip()))
-               break
+                self.sessions.append(Session(line.strip()))
+                break
         for line in sio:
-            attr, value = line.split(':')
-            attr = attr.strip().replace(" ", "_").replace("/", "_").lower()
-            self.__dict__[attr] = value.strip()
+            line = line.strip()
+            if line:
+                attr, value = line.split(':')
+                attr = attr.strip().replace(" ", "_").replace("/", "_").lower()
+                self.__dict__[attr] = value.strip()
 
         try:
             self.min_latency, self.avg_latency, self.max_latency = self.latency_min_avg_max.split("/")

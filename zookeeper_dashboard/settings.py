@@ -1,8 +1,11 @@
 # Django settings for zookeeper_dashboard project.
 
-### ZooKeeper specific settings
+### ZooKeeper settings
 
-ZOOKEEPER_SERVERS = "zookeeper.local.twitter.com:2181"
+#ZOOKEEPER_CLI_LOG_PATH = "cli_log.txt"
+import os
+ZOOKEEPER_CLI_LOG_PATH = os.devnull
+
 
 ### From here down are Django settings
 
@@ -105,9 +108,6 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'zookeeper_dashboard.urls'
 
-# Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'zookeeper_dashboard.wsgi.application'
-
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
@@ -128,3 +128,5 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+from zookeeper_dashboard import lcoal_settings
