@@ -9,7 +9,10 @@ OP_ACCEPT = 16
 
 class Session(object):
     def __init__(self, session):
-    	m = re.search('/(\d+\.\d+\.\d+\.\d+):(\d+)\[(\d+)\]\((.*)', session)
+        #TODO: Support URLs, Not just IPs
+        m = re.search('/(\d+\.\d+\.\d+\.\d+):(\d+)\[(\d+)\]\((.*)\)', session)
+        if not m:
+            m = re.search('/(0:0:0:0:0:0:0:1):(\d+)\[(\d+)\]\((.*)\)', session)
         self.host = m.group(1)
         self.port = m.group(2)
         self.interest_ops = m.group(3)
